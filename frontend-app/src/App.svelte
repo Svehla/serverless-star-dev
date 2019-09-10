@@ -5,12 +5,14 @@
   export let url = "";
 </script>
 
-<Router url="{url}">
-  <nav>
-    <Link to="/">Users</Link>
-  </nav>
-  <div>
-    <Route path="/" component="{Users}" />
-    <Route path="users/:userId" component="{User}" />
-  </div>
-</Router>
+<div class="container">
+  <Router url="{url}">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <Link class="navbar-brand" to="/">Users</Link>
+    </nav>
+    <div>
+      <Route path="/" component="{Users}" />
+      <Route path="users/:userId" component="{User}" />
+    </div>
+  </Router>
+</div>

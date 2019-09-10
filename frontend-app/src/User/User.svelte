@@ -59,13 +59,24 @@
     <div>
       createdAt: {user.createdAt && new Date(parseInt(user.createdAt)).toISOString()}
     </div>
-    <div>
-      <input bind:value={newName} />
-      <button on:click={updateUserName}>udpate user name</button>
-    </div>
+
+    <form on:submit|preventDefault={updateUserName}>
+      <div class="input-group mb-3">
+        <input bind:value={newName}  type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button">Udpate name</button>
+        </div>
+      </div>
+    </form>
+
+    <br />
 
     <div>
-      <button on:click={deleteUser}>Delete user</button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        on:click={deleteUser}
+      >Delete user</button>
     </div>
   {/if}
 </div>
