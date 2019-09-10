@@ -29,7 +29,7 @@ const createNewUser = async (userName) => {
   return newUser
 }
 
-exports.starDevCreateUser = async (event, context, callback) => {
+exports.createUser = async (event, context, callback) => {
   const newUserName = JSON.parse(event.body).userName
   try {
     const newUser = await createNewUser(newUserName)

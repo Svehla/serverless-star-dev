@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
-exports.starDevUpdateUser = async (event, context, callback) => {
+exports.updateUser = async (event, context, callback) => {
   const userId = event.pathParameters.id
   const newName = JSON.parse(event.body).newName
 

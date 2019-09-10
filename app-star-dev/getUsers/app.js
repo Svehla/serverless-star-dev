@@ -1,13 +1,9 @@
 const AWS = require('aws-sdk');
 const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
-// const lol = require('../util')
-// console.log(lol)
 
-exports.starDevGetUsers = async (event) => {
-  // TODO: add pagination
+exports.getUsers = async (event) => {
   try {
     const data = await dynamodb.scan({ TableName: process.env.USER_TABLE_NAME }).promise()
-    // console.log(data)
     const users = data.Items.map(item => ({
       id: item.id.S,
       name: item.name.S,

@@ -19,8 +19,8 @@ Resources:
   StarDevGetUsers:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://app-star-dev/1f20cbadfe07708ad051407c7fe37b62
-      Handler: app.starDevGetUsers
+      CodeUri: s3://app-star-dev/9d2f602b6b056a0ec5493ec25aaddaea
+      Handler: app.getUsers
       Policies:
       - DynamoDBCrudPolicy:
           TableName:
@@ -36,8 +36,8 @@ Resources:
   StarDevCreateUser:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://app-star-dev/f53f83106c2d00717a0a10cc695e6c47
-      Handler: app.starDevCreateUser
+      CodeUri: s3://app-star-dev/7807677e4ff493a84debf2c551a56e3d
+      Handler: app.createUser
       Policies:
       - DynamoDBCrudPolicy:
           TableName:
@@ -53,8 +53,8 @@ Resources:
   StarDevDeleteUser:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://app-star-dev/c57ae1db593c8ad230af41944b3a14b2
-      Handler: app.starDevDeleteUser
+      CodeUri: s3://app-star-dev/b13e3fb808efc4ffa296d62dab747832
+      Handler: app.deleteUser
       Policies:
       - DynamoDBCrudPolicy:
           TableName:
@@ -70,8 +70,8 @@ Resources:
   StarDevUpdateUser:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://app-star-dev/1351b42706ed61aca251825b0ffd6639
-      Handler: app.starDevUpdateUser
+      CodeUri: s3://app-star-dev/6dc334ca540aa0cf87166184e4ccc1e7
+      Handler: app.updateUser
       Policies:
       - DynamoDBCrudPolicy:
           TableName:

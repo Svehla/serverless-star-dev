@@ -11,7 +11,7 @@ const deleteUser = userId =>
     }, 
   }).promise()
 
-exports.starDevDeleteUser = async (event) => {
+exports.deleteUser = async (event) => {
   const userIdToDelete = event.pathParameters.id
   try {
     await deleteUser(userIdToDelete)
