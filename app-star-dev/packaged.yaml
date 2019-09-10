@@ -33,6 +33,23 @@ Resources:
               Ref: ApiGatewayApi
             Path: /users
             Method: get
+  StarDevGetUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://app-star-dev/6061357947c307ac3b709b6ce6719b75
+      Handler: app.getUser
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: DynamoDBTable
+      Events:
+        StarDevGetUser:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ApiGatewayApi
+            Path: /users/{id}
+            Method: get
   StarDevCreateUser:
     Type: AWS::Serverless::Function
     Properties:

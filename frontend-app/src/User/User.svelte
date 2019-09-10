@@ -4,10 +4,21 @@
 	import { BACKEND_URL } from '../conf.js'
 
   export let userId
+  let user
+  let loadingUser = false
 
   let newName = ""
   const fetchUserById = async () => {
-    console.log('fetch user by id: ', userId)
+    try {
+      loadingUser = true
+      const res = await axios.get(`${BACKEND_URL}/users/${userId}`)
+      user = res.data.user
+      loadingUser = false
+      console.log(res)
+    } catch (err) {
+      console.error(err)
+      loadingUser = false
+    }
   }
   fetchUserById()
 
@@ -18,7 +29,8 @@
         `${BACKEND_URL}/users/${userId}`,
         JSON.stringify({ newName })
       )
-      navigate("/", { replace: true })
+      console.log(res)
+      user = res.data.updatedUser
     } catch (err) {
       console.error(err)
     }
@@ -35,13 +47,25 @@
 </script>
 
 <div>
-  <h1>{userId}</h1>
-  <div>
-    <input bind:value={newName} />
-    <button on:click={updateUserName}>udpate user name</button>
-  </div>
+  {#if loadingUser}
+    <div>Loading</div>
+  {/if}
 
-  <div>
-    <button on:click={deleteUser}>Delete user</button>
-  </div>
+  {#if user}
+    <h1>{user && user.name}</h1>
+    <div>
+      id: {user && user.id}
+    </div>
+    <div>
+      createdAt: {user.createdAt && new Date(parseInt(user.createdAt)).toISOString()}
+    </div>
+    <div>
+      <input bind:value={newName} />
+      <button on:click={updateUserName}>udpate user name</button>
+    </div>
+
+    <div>
+      <button on:click={deleteUser}>Delete user</button>
+    </div>
+  {/if}
 </div>

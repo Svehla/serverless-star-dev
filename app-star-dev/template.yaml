@@ -33,6 +33,21 @@ Resources:
             RestApiId: !Ref ApiGatewayApi
             Path: /users
             Method: get
+  StarDevGetUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: getUser/
+      Handler: app.getUser
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref DynamoDBTable
+      Events:
+        StarDevGetUser:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /users/{id}
+            Method: get
   StarDevCreateUser:
     Type: AWS::Serverless::Function
     Properties:
@@ -88,7 +103,7 @@ Resources:
         -
           AttributeName: id
           KeyType: HASH
-        # TODO: add created_at
+        # TODO: add createdAt
         # -
         #   AttributeName: createdAt
         #   KeyType: RANGE
@@ -96,7 +111,7 @@ Resources:
         -
           AttributeName: "id"
           AttributeType: "S"
-        # TODO: add created_at
+        # TODO: add createdAt
         # -
         #   AttributeName: "createdAt"
         #   AttributeType: "N"
