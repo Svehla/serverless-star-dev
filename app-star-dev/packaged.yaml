@@ -1,0 +1,99 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'Example CRUD app for *dev (star-dev) meetup
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+    Runtime: nodejs8.10
+    Environment:
+      Variables:
+        USER_TABLE_NAME: app-test-star-dev-users
+Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors: '''*'''
+  StarDevGetUsers:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://app-star-dev/1f20cbadfe07708ad051407c7fe37b62
+      Handler: app.starDevGetUsers
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: DynamoDBTable
+      Events:
+        StarDevGetUsers:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ApiGatewayApi
+            Path: /users
+            Method: get
+  StarDevCreateUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://app-star-dev/f53f83106c2d00717a0a10cc695e6c47
+      Handler: app.starDevCreateUser
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: DynamoDBTable
+      Events:
+        StarDevCreateUser:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ApiGatewayApi
+            Path: /users
+            Method: post
+  StarDevDeleteUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://app-star-dev/c57ae1db593c8ad230af41944b3a14b2
+      Handler: app.starDevDeleteUser
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: DynamoDBTable
+      Events:
+        StarDevDeleteUser:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ApiGatewayApi
+            Path: /users/{id}
+            Method: delete
+  StarDevUpdateUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: s3://app-star-dev/1351b42706ed61aca251825b0ffd6639
+      Handler: app.starDevUpdateUser
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: DynamoDBTable
+      Events:
+        StarDevUpdateUser:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ApiGatewayApi
+            Path: /users/{id}
+            Method: put
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: app-test-star-dev-users
+      KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+      AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5

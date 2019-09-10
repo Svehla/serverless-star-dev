@@ -1,0 +1,7 @@
+{
+  "name": "star-dev-delete-user",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "Jakub Švehla",
+  "license": "MIT"
+}

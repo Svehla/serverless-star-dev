@@ -1,0 +1,10 @@
+{
+  "name": "star-dev-create-user",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "Jakub Švehla",
+  "license": "MIT",
+  "dependencies": {
+    "uuid": "^3.3.3"
+  }
+}
