@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: 'Example CRUD app for *dev (star-dev) meetup
+Description: 'Example CRUD app for *dev (star-dev) meetups
 
   '
 Globals:
@@ -19,7 +19,7 @@ Resources:
   StarDevGetUsers:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://app-star-dev/9d2f602b6b056a0ec5493ec25aaddaea
+      CodeUri: s3://app-star-dev/f640fe473518e12aca8b3b50e4253b4e
       Handler: app.getUsers
       Policies:
       - DynamoDBCrudPolicy:
@@ -36,7 +36,7 @@ Resources:
   StarDevGetUser:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://app-star-dev/6061357947c307ac3b709b6ce6719b75
+      CodeUri: s3://app-star-dev/2355427b570c545fb927f48a7cf3d489
       Handler: app.getUser
       Policies:
       - DynamoDBCrudPolicy:
@@ -53,7 +53,7 @@ Resources:
   StarDevCreateUser:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://app-star-dev/7807677e4ff493a84debf2c551a56e3d
+      CodeUri: s3://app-star-dev/b3e6a1ccb430ed3574a87fcdf3981ae7
       Handler: app.createUser
       Policies:
       - DynamoDBCrudPolicy:
@@ -70,7 +70,7 @@ Resources:
   StarDevDeleteUser:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://app-star-dev/b13e3fb808efc4ffa296d62dab747832
+      CodeUri: s3://app-star-dev/e0acae2d766516b9696c098d5b2c2ca6
       Handler: app.deleteUser
       Policies:
       - DynamoDBCrudPolicy:
@@ -87,7 +87,7 @@ Resources:
   StarDevUpdateUser:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://app-star-dev/6dc334ca540aa0cf87166184e4ccc1e7
+      CodeUri: s3://app-star-dev/76ffb2ac53c911e5b66a827736dd740e
       Handler: app.updateUser
       Policies:
       - DynamoDBCrudPolicy:

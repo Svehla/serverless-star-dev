@@ -1,26 +1,16 @@
 const AWS = require('aws-sdk');
-const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
+const dynamodb = new AWS.DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 
 exports.updateUser = async (event, context, callback) => {
   const userId = event.pathParameters.id
   const newName = JSON.parse(event.body).newName
 
   try {
-    const data = await dynamodb.updateItem({
+    const data = await dynamodb.update({
       TableName: process.env.USER_TABLE_NAME,
-      ExpressionAttributeNames: {
-        "#NM": "name",
-      },
-      ExpressionAttributeValues: {
-        ":name": {
-          S: newName
-        },
-      },
-      Key: {
-        "id": {
-          S: userId
-        },
-      },
+      ExpressionAttributeNames: { "#NM": "name" },
+      ExpressionAttributeValues: { ":name": newName },
+      Key: { id: userId },
       ReturnValues: "ALL_NEW",
       UpdateExpression: "SET #NM = :name"
     }).promise()
@@ -31,11 +21,7 @@ exports.updateUser = async (event, context, callback) => {
         'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({
-        updatedUser: {
-          id: data.Attributes.id.S,
-          name: data.Attributes.name.S,
-          createdAt: data.Attributes.createdAt.N,
-        },
+        updatedUser: data.Attributes
       }),
     }
   } catch(err) {

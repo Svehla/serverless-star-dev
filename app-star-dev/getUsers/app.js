@@ -1,20 +1,16 @@
 const AWS = require('aws-sdk');
-const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
+const dynamodb = new AWS.DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 
 exports.getUsers = async (event) => {
   try {
-    const data = await dynamodb.scan({ TableName: process.env.USER_TABLE_NAME }).promise()
-    const users = data.Items.map(item => ({
-      id: item.id.S,
-      name: item.name.S,
-      createdAt: item.createdAt.N,
-    }))
+    const users = await dynamodb.scan({ TableName: process.env.USER_TABLE_NAME }).promise()
+
     return {
       statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify({ users })
+      body: JSON.stringify({ users: users.Items })
     }
   } catch(err) {
      console.log(err, err.stack);

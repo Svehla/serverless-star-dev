@@ -8,13 +8,13 @@
   let loadingUser = false
 
   let newName = ""
+
   const fetchUserById = async () => {
     try {
       loadingUser = true
       const res = await axios.get(`${BACKEND_URL}/users/${userId}`)
       user = res.data.user
       loadingUser = false
-      console.log(res)
     } catch (err) {
       console.error(err)
       loadingUser = false
@@ -31,6 +31,7 @@
       )
       console.log(res)
       user = res.data.updatedUser
+      newName = ''
     } catch (err) {
       console.error(err)
     }
@@ -62,9 +63,9 @@
 
     <form on:submit|preventDefault={updateUserName}>
       <div class="input-group mb-3">
-        <input bind:value={newName}  type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <input bind:value={newName}  type="text" class="form-control" placeholder="user's name">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button">Udpate name</button>
+          <button class="btn btn-outline-secondary" type="submit">Udpate name</button>
         </div>
       </div>
     </form>

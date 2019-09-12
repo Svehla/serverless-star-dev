@@ -1,20 +1,16 @@
 const AWS = require('aws-sdk');
-const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+const dynamodb = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
  
-const deleteUser = userId => 
-  dynamodb.deleteItem({
-    TableName: process.env.USER_TABLE_NAME,
-    Key: {
-      id: {
-        S: userId
-      },
-    }, 
-  }).promise()
-
 exports.deleteUser = async (event) => {
   const userIdToDelete = event.pathParameters.id
   try {
-    await deleteUser(userIdToDelete)
+    await dynamodb.delete({
+      TableName: process.env.USER_TABLE_NAME,
+      Key: {
+        id: userIdToDelete
+      }, 
+    }).promise()
+
     return {
       statusCode: "200",
       headers: {

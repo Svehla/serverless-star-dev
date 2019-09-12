@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk')
 const uuidv1 = require('uuid/v1')
-const dynamodb = new AWS.DynamoDB({
+const dynamodb = new AWS.DynamoDB.DocumentClient({
   apiVersion: '2012-08-10'
 });
 
@@ -11,18 +11,12 @@ const createNewUser = async (userName) => {
     createdAt: new Date().getTime(),
   }
 
-  await dynamodb.putItem({
+  await dynamodb.put({
     TableName: process.env.USER_TABLE_NAME,
     Item: {
-      "id": {
-        S: newUser.id,
-      },
-      "name": {
-        S: newUser.name
-      },
-      "createdAt": {
-        N: `${newUser.createdAt}`
-      },
+      id: newUser.id,
+      name: newUser.name,
+      createdAt: `${newUser.createdAt}`
     },
   }).promise()
 
